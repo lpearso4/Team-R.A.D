@@ -1,6 +1,6 @@
 USE [master]
 GO
-/****** Object:  Database [HRAS_RAD]    Script Date: 3/22/2019 12:33:08 PM ******/
+/****** Object:  Database [HRAS_RAD]    Script Date: 3/25/2019 11:31:12 PM ******/
 CREATE DATABASE [HRAS_RAD]
  CONTAINMENT = NONE
  ON  PRIMARY 
@@ -79,12 +79,12 @@ ALTER DATABASE [HRAS_RAD] SET QUERY_STORE = OFF
 GO
 USE [HRAS_RAD]
 GO
-/****** Object:  User [teamRADGSHAUser]    Script Date: 3/22/2019 12:33:08 PM ******/
+/****** Object:  User [teamRADGSHAUser]    Script Date: 3/25/2019 11:31:12 PM ******/
 CREATE USER [teamRADGSHAUser] FOR LOGIN [teamRADGSHAUser] WITH DEFAULT_SCHEMA=[dbo]
 GO
 ALTER ROLE [db_owner] ADD MEMBER [teamRADGSHAUser]
 GO
-/****** Object:  Table [dbo].[Inventory]    Script Date: 3/22/2019 12:33:08 PM ******/
+/****** Object:  Table [dbo].[Inventory]    Script Date: 3/25/2019 11:31:12 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -93,13 +93,13 @@ CREATE TABLE [dbo].[Inventory](
 	[StockId] [nvarchar](50) NOT NULL,
 	[Description] [nvarchar](300) NULL,
 	[Cost] [money] NULL,
- CONSTRAINT [PK_Inventor] PRIMARY KEY CLUSTERED 
+ CONSTRAINT [PK_Inventory] PRIMARY KEY CLUSTERED 
 (
 	[StockId] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Item]    Script Date: 3/22/2019 12:33:08 PM ******/
+/****** Object:  Table [dbo].[Item]    Script Date: 3/25/2019 11:31:12 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -114,7 +114,7 @@ CREATE TABLE [dbo].[Item](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Log]    Script Date: 3/22/2019 12:33:08 PM ******/
+/****** Object:  Table [dbo].[Log]    Script Date: 3/25/2019 11:31:12 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -124,7 +124,7 @@ CREATE TABLE [dbo].[Log](
 	[UserName] [nvarchar](50) NOT NULL,
 	[Date] [datetime] NOT NULL,
 	[QuantityUsed] [decimal](14, 1) NULL,
- CONSTRAINT [PK_Lo] PRIMARY KEY CLUSTERED 
+ CONSTRAINT [PK_Log] PRIMARY KEY CLUSTERED 
 (
 	[StockId] ASC,
 	[UserName] ASC,
@@ -132,7 +132,7 @@ CREATE TABLE [dbo].[Log](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Patient]    Script Date: 3/22/2019 12:33:08 PM ******/
+/****** Object:  Table [dbo].[Patient]    Script Date: 3/25/2019 11:31:12 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -152,13 +152,13 @@ CREATE TABLE [dbo].[Patient](
 	[InsurerId] [nvarchar](50) NULL,
 	[DoNotResuscitate] [bit] NULL,
 	[OrganDonor] [bit] NULL,
- CONSTRAINT [PK_Patien] PRIMARY KEY CLUSTERED 
+ CONSTRAINT [PK_Patient] PRIMARY KEY CLUSTERED 
 (
 	[SSN] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Room]    Script Date: 3/22/2019 12:33:08 PM ******/
+/****** Object:  Table [dbo].[Room]    Script Date: 3/25/2019 11:31:12 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -166,15 +166,15 @@ GO
 CREATE TABLE [dbo].[Room](
 	[HourlyRate] [decimal](5, 2) NULL,
 	[EffectiveDate] [datetime] NOT NULL,
-	[RoomNumber] [nvarchar](4) NOT NULL,
- CONSTRAINT [PK_Room] PRIMARY KEY CLUSTERED 
+	[RoomNumber] [nvarchar](10) NOT NULL,
+ CONSTRAINT [PK_Room_1] PRIMARY KEY CLUSTERED 
 (
 	[EffectiveDate] ASC,
 	[RoomNumber] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Service]    Script Date: 3/22/2019 12:33:08 PM ******/
+/****** Object:  Table [dbo].[Service]    Script Date: 3/25/2019 11:31:12 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -187,7 +187,7 @@ CREATE TABLE [dbo].[Service](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[StaysIn]    Script Date: 3/22/2019 12:33:08 PM ******/
+/****** Object:  Table [dbo].[StaysIn]    Script Date: 3/25/2019 11:31:12 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -199,7 +199,7 @@ CREATE TABLE [dbo].[StaysIn](
 	[VisitEntryDate] [datetime] NOT NULL,
 	[RoomEntryDateTime] [datetime] NULL,
 	[RoomExitDateTime] [datetime] NULL,
- CONSTRAINT [PK_StaysI] PRIMARY KEY CLUSTERED 
+ CONSTRAINT [PK_StaysIn] PRIMARY KEY CLUSTERED 
 (
 	[RoomNumber] ASC,
 	[RoomEffectiveDate] ASC,
@@ -208,7 +208,7 @@ CREATE TABLE [dbo].[StaysIn](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Symptom]    Script Date: 3/22/2019 12:33:08 PM ******/
+/****** Object:  Table [dbo].[Symptom]    Script Date: 3/25/2019 11:31:12 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -225,7 +225,7 @@ CREATE TABLE [dbo].[Symptom](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[User]    Script Date: 3/22/2019 12:33:08 PM ******/
+/****** Object:  Table [dbo].[User]    Script Date: 3/25/2019 11:31:12 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -234,13 +234,13 @@ CREATE TABLE [dbo].[User](
 	[Username] [nvarchar](50) NOT NULL,
 	[Password] [nvarchar](50) NOT NULL,
 	[UserType] [nchar](10) NOT NULL,
- CONSTRAINT [PK_User_1] PRIMARY KEY CLUSTERED 
+ CONSTRAINT [PK_User] PRIMARY KEY CLUSTERED 
 (
 	[Username] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Uses]    Script Date: 3/22/2019 12:33:08 PM ******/
+/****** Object:  Table [dbo].[Uses]    Script Date: 3/25/2019 11:31:12 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -249,7 +249,7 @@ CREATE TABLE [dbo].[Uses](
 	[StockId] [nvarchar](50) NOT NULL,
 	[PatientId] [nvarchar](9) NOT NULL,
 	[EntryDateTime] [datetime] NOT NULL,
- CONSTRAINT [PK_Use] PRIMARY KEY CLUSTERED 
+ CONSTRAINT [PK_Uses] PRIMARY KEY CLUSTERED 
 (
 	[StockId] ASC,
 	[PatientId] ASC,
@@ -257,7 +257,7 @@ CREATE TABLE [dbo].[Uses](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Visit]    Script Date: 3/22/2019 12:33:08 PM ******/
+/****** Object:  Table [dbo].[Visit]    Script Date: 3/25/2019 11:31:12 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -268,12 +268,47 @@ CREATE TABLE [dbo].[Visit](
 	[ExitDate] [datetime] NULL,
 	[AttendingPhysician] [nvarchar](50) NULL,
 	[Diagnosis] [nvarchar](50) NULL,
- CONSTRAINT [PK_Visi] PRIMARY KEY CLUSTERED 
+ CONSTRAINT [PK_Visit] PRIMARY KEY CLUSTERED 
 (
 	[PatientId] ASC,
 	[EntryDate] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
+GO
+ALTER TABLE [dbo].[Log]  WITH CHECK ADD  CONSTRAINT [FK_Log_Inventory] FOREIGN KEY([StockId])
+REFERENCES [dbo].[Inventory] ([StockId])
+GO
+ALTER TABLE [dbo].[Log] CHECK CONSTRAINT [FK_Log_Inventory]
+GO
+ALTER TABLE [dbo].[Log]  WITH CHECK ADD  CONSTRAINT [FK_Log_User] FOREIGN KEY([UserName])
+REFERENCES [dbo].[User] ([Username])
+GO
+ALTER TABLE [dbo].[Log] CHECK CONSTRAINT [FK_Log_User]
+GO
+ALTER TABLE [dbo].[Service]  WITH CHECK ADD  CONSTRAINT [FK_Service_Inventory] FOREIGN KEY([StockId])
+REFERENCES [dbo].[Inventory] ([StockId])
+GO
+ALTER TABLE [dbo].[Service] CHECK CONSTRAINT [FK_Service_Inventory]
+GO
+ALTER TABLE [dbo].[StaysIn]  WITH CHECK ADD  CONSTRAINT [FK_StaysIn_Patient] FOREIGN KEY([PatientId])
+REFERENCES [dbo].[Patient] ([SSN])
+GO
+ALTER TABLE [dbo].[StaysIn] CHECK CONSTRAINT [FK_StaysIn_Patient]
+GO
+ALTER TABLE [dbo].[StaysIn]  WITH CHECK ADD  CONSTRAINT [FK_StaysIn_Room] FOREIGN KEY([RoomEffectiveDate], [RoomNumber])
+REFERENCES [dbo].[Room] ([EffectiveDate], [RoomNumber])
+GO
+ALTER TABLE [dbo].[StaysIn] CHECK CONSTRAINT [FK_StaysIn_Room]
+GO
+ALTER TABLE [dbo].[Uses]  WITH CHECK ADD  CONSTRAINT [FK_Uses_Inventory] FOREIGN KEY([StockId])
+REFERENCES [dbo].[Inventory] ([StockId])
+GO
+ALTER TABLE [dbo].[Uses] CHECK CONSTRAINT [FK_Uses_Inventory]
+GO
+ALTER TABLE [dbo].[Uses]  WITH CHECK ADD  CONSTRAINT [FK_Uses_Visit] FOREIGN KEY([PatientId], [EntryDateTime])
+REFERENCES [dbo].[Visit] ([PatientId], [EntryDate])
+GO
+ALTER TABLE [dbo].[Uses] CHECK CONSTRAINT [FK_Uses_Visit]
 GO
 USE [master]
 GO
